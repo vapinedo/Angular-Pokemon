@@ -1,7 +1,15 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 
-const routes: Routes = [];
+const routes: Routes = [
+  {
+    path: 'pokemon',
+    loadChildren: () => import('@feature/pokemon/pokemon.module')
+      .then(m => m.PokemonModule)
+  },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '**', redirectTo: '/home' }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
