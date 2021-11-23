@@ -5,9 +5,11 @@ import { CoreModule } from '@core/core.module';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
+import { NavbarComponent } from '@shared/components/navbar/navbar.component';
 
 const components = [
-  AppComponent
+  AppComponent,
+  NavbarComponent
 ];
 
 const modules = [
