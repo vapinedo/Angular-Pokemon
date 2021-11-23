@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { PokemonHomeComponent } from './home/pokemon-home.component';
 
 const routes: Routes = [
-  { path: 'home', component: PokemonHomeComponent },
+  { path: '', component: PokemonHomeComponent },
 ];
 
 @NgModule({
