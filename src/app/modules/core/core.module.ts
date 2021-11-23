@@ -1,12 +1,18 @@
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
+import { PokemonService } from './pokemon.service';
+
 const modules = [
     HttpClientModule
 ];
 
+const services = [
+    PokemonService
+];
+
 @NgModule({
     imports: [modules],
-    providers: [],
+    providers: [services],
 })
 export class CoreModule { }

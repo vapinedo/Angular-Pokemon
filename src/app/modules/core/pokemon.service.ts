@@ -1,12 +1,19 @@
+import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { pokemonApi } from '@environments/environment';
 
 @Injectable()
-export class ServiceNameService {
+export class PokemonService {
 
-    constructor() { }
+    private readonly pokemonApi = pokemonApi.baseUrl;
 
-    public getByName(name: string): string {
-        return `Your pokemon is: ${ name }`;
+    constructor(
+        private httpClient: HttpClient
+    ) { }
+
+    public getByName(name: string): Observable<Object> {
+        return this.httpClient.get(`${ pokemonApi }/${ name }`);
     }
     
 }
