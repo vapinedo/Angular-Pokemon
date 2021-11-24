@@ -31,6 +31,9 @@ export class PokemonService {
         try {
             const request = await fetch(`${this.pokemonApi}${name}`);
             const response = await request.json();
+
+            console.log('Poke info', response);
+
             return response;
             
         } catch (error) {
