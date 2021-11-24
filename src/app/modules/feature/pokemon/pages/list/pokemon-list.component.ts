@@ -3,13 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { PokemonService } from '@core/pokemon.service';
 
 @Component({
-  selector: 'app-pokemon-home',
-  templateUrl: './pokemon-home.component.html',
-  styleUrls: ['./pokemon-home.component.scss']
+  selector: 'app-pokemon-list',
+  templateUrl: './pokemon-list.component.html',
+  styleUrls: ['./pokemon-list.component.scss']
 })
-export class PokemonHomeComponent implements OnInit {
+export class PokemonListComponent implements OnInit {
 
-  public pokemon: any;
   public pokemonList: any[] = [];
 
   constructor( 

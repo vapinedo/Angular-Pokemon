@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { PokemonRoutingModule } from './pokemon-routing.module';
 
-import { PokemonHomeComponent } from './home/pokemon-home.component';
+import { PokemonListComponent } from './pages/list/pokemon-list.component';
+import { PokemonCardComponent } from './components/card/pokemon-card.component';
 
 const modules = [
   CommonModule,
@@ -11,7 +12,8 @@ const modules = [
 ];
 
 const components = [
-  PokemonHomeComponent
+  PokemonListComponent,
+  PokemonCardComponent
 ];
 
 @NgModule({
