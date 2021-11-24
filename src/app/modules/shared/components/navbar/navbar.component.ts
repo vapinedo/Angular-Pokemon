@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-navbar',
@@ -10,10 +10,14 @@ export class NavbarComponent {
 
   logo: string = "../../../../../assets/img/logo.png";
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+  ) {}
 
-  onSearch(queryString: string) {
+  onSearch(inputSearch: HTMLInputElement) {
+    const queryString = inputSearch.value.toLowerCase().trim();
     if (queryString.length > 0) {
+      inputSearch.value = "";
       this.router.navigate(["/pokemon/search", queryString]);
     }
     return;
