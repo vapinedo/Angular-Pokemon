@@ -1,6 +1,7 @@
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { PokemonService } from '@core/services/pokemon.service';
+import { PokemonShort } from '@core/interfaces/pokemon.interface';
 
 @Component({
   selector: 'app-pokemon-search',
@@ -9,7 +10,7 @@ import { PokemonService } from '@core/services/pokemon.service';
 })
 export class PokemonSearchComponent implements OnInit {
 
-  pokemon: any;
+  pokemon!: PokemonShort;
 
   constructor( 
     private pokemonSvc: PokemonService,
@@ -24,6 +25,7 @@ export class PokemonSearchComponent implements OnInit {
   async pokemonSearch(queryString: string) {
     const pokemon = await this.pokemonSvc.getPokemonByName(queryString);
     if (pokemon) {
+      console.log(pokemon)
       this.pokemon = pokemon;
     }
   }
