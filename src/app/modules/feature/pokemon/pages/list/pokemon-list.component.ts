@@ -1,6 +1,6 @@
-import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { PokemonService } from '@core/services/pokemon.service';
+import { PokemonShort } from '@core/interfaces/pokemon.interface';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -9,7 +9,7 @@ import { PokemonService } from '@core/services/pokemon.service';
 })
 export class PokemonListComponent implements OnInit {
 
-  public pokemonList: any[] = [];
+  public pokemonList: PokemonShort[] = [];
 
   constructor( 
     private pokemonSvc: PokemonService
@@ -21,7 +21,7 @@ export class PokemonListComponent implements OnInit {
 
   async getPokemonList() {
     const pokemonList = await this.pokemonSvc.getPokemonList();
-    if (pokemonList.length > 0) {
+    if (pokemonList && pokemonList.length > 0) {
       this.pokemonList = pokemonList;
     }
   }

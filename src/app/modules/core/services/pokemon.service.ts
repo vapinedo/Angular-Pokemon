@@ -2,6 +2,7 @@ import { map } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { pokemonApi } from '@environments/environment';
+import { PokemonExtended, PokemonShort } from '@core/interfaces/pokemon.interface';
 
 @Injectable()
 export class PokemonService {
@@ -12,41 +13,43 @@ export class PokemonService {
         private httpClient: HttpClient
     ) { }
 
-    async getPokemonList(): Promise<any> {
+    async getPokemonList(): Promise<PokemonShort[] | undefined> {
         try {
             const request = await fetch(pokemonApi);
             const { results } = await request.json();
-            const pokemonList = results.map((poke: any) => {
+
+            const pokemonList = results.map((poke: PokemonShort) => {
                 const pokemon = this.getPokemonByName(poke.name);
                 return pokemon;
             })
             return Promise.all(pokemonList);
 
         } catch (error) {
-            return error;
+            console.error(error)
+            return undefined;
         }
     }
 
-    async getPokemonByName(name: string) {
+    async getPokemonByName(name: string): Promise<PokemonShort | undefined> {
         const nameWithSpaces = name.trim();
         try {
-            return this.httpClient.get(`${this.pokemonApi}${nameWithSpaces}`)
-            .pipe(map(pokemon => this.getPokemonProps(pokemon)))
+            return this.httpClient.get<PokemonExtended>(`${this.pokemonApi}${nameWithSpaces}`)
+            .pipe(map((pokemon) => this.getPokemonShort(pokemon)))
             .toPromise();
             
         } catch (error) {
-            console.log('Error ocurred');
-            return error;
+            console.error(error);
+            return undefined;
         }
     }
 
-    private getPokemonProps(pokemon: any) {
+    private getPokemonShort(pokemon: PokemonExtended): PokemonShort {
         const { 
             name, 
             moves,
-            sprites: { other: { home: { front_default }}}
+            sprites: { other: { home: { front_default: image }}}
         } = pokemon;
-        return { name, moves, front_default };
+        return { name, moves, image };
     }
 
 }
