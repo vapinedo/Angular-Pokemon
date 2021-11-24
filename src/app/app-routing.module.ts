@@ -3,12 +3,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'pokemon',
     loadChildren: () => import('@feature/pokemon/pokemon.module')
       .then(m => m.PokemonModule)
   },
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: '**', redirectTo: '/home' }
+  { path: '', redirectTo: '/pokemon', pathMatch: 'full' },
+  { path: '**', redirectTo: '/pokemon' }
 ];
 
 @NgModule({

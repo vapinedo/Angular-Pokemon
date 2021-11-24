@@ -1,10 +1,10 @@
 
 <div class="card animate__animated animate__fadeIn">
-  <img [src]="pokemon.front_default" class="card-img-top" alt="...">
+  <img [src]="pokemon?.front_default" class="card-img-top" alt="...">
   <div class="card-body">
-    <h5 class="card-title text-center text-muted">{{ pokemon.name | uppercase }}</h5>
+    <h5 class="card-title text-center text-muted">{{ pokemon?.name | uppercase }}</h5>
     <p class="card-text">
-      <span class="badge bg-info text-dark">{{ pokemon.moves.length }} moves</span>
+      <span class="badge bg-info text-dark">{{ pokemon?.moves.length }} moves</span>
     </p>
   </div>
 </div>

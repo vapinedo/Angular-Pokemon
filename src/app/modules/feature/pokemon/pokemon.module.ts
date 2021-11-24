@@ -5,6 +5,7 @@ import { PokemonRoutingModule } from './pokemon-routing.module';
 
 import { PokemonListComponent } from './pages/list/pokemon-list.component';
 import { PokemonCardComponent } from './components/card/pokemon-card.component';
+import { PokemonSearchComponent } from './pages/search/pokemon-search.component';
 
 const modules = [
   CommonModule,
@@ -13,7 +14,8 @@ const modules = [
 
 const components = [
   PokemonListComponent,
-  PokemonCardComponent
+  PokemonCardComponent,
+  PokemonSearchComponent
 ];
 
 @NgModule({

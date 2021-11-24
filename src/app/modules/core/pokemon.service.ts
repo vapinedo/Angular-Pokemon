@@ -23,7 +23,7 @@ export class PokemonService {
             return Promise.all(pokemonList);
 
         } catch (error) {
-            console.error(error);
+            return error;
         }
     }
 
@@ -31,13 +31,10 @@ export class PokemonService {
         try {
             const request = await fetch(`${this.pokemonApi}${name}`);
             const response = await request.json();
-
-            console.log('Poke info', response);
-
             return response;
             
         } catch (error) {
-            console.error(error);
+            return error;
         }
     }
 
