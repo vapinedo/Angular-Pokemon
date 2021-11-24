@@ -23,10 +23,9 @@ export class PokemonHomeComponent implements OnInit {
   async getPokemonList() {
     const pokemonList = await this.pokemonSvc.getPokemonList();
     const pokemonArr = pokemonList.map((pokemon: any) => {
-      const { name, sprites: { other: { home: { front_default } } } } = pokemon;
+      const { name, sprites: { other: { home: { front_default }}}} = pokemon;
       return { name, front_default };
     });
-
     this.pokemonList = pokemonArr;
   }
   
