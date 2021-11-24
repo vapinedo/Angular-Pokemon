@@ -1,6 +1,6 @@
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { PokemonService } from '@core/pokemon.service';
+import { PokemonService } from '@core/services/pokemon.service';
 
 @Component({
   selector: 'app-pokemon-search',
@@ -23,13 +23,9 @@ export class PokemonSearchComponent implements OnInit {
 
   async pokemonSearch(queryString: string) {
     const pokemon = await this.pokemonSvc.getPokemonByName(queryString);
-    console.log('error', pokemon)
-    const { 
-      name, 
-      moves,
-      sprites: { other: { home: { front_default }}}
-    } = pokemon;
-    this.pokemon = { name, moves, front_default };
+    if (pokemon) {
+      this.pokemon = pokemon;
+    }
   }
 
 }

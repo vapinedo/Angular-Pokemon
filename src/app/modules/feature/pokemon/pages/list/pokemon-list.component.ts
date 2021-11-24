@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { PokemonService } from '@core/pokemon.service';
+import { PokemonService } from '@core/services/pokemon.service';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -21,15 +21,9 @@ export class PokemonListComponent implements OnInit {
 
   async getPokemonList() {
     const pokemonList = await this.pokemonSvc.getPokemonList();
-    const pokemonArr = pokemonList.map((pokemon: any) => {
-      const { 
-        name, 
-        moves,
-        sprites: { other: { home: { front_default }}}
-      } = pokemon;
-      return { name, front_default, moves };
-    });
-    this.pokemonList = pokemonArr;
+    if (pokemonList.length > 0) {
+      this.pokemonList = pokemonList;
+    }
   }
   
 }

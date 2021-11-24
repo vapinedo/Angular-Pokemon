@@ -1,4 +1,4 @@
-import { map, mergeAll, mergeMap, Observable, pluck, tap } from 'rxjs';
+import { map } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { pokemonApi } from '@environments/environment';
@@ -27,15 +27,26 @@ export class PokemonService {
         }
     }
 
-    public async getPokemonByName(name: string): Promise<any> {
+    async getPokemonByName(name: string) {
+        const nameWithSpaces = name.trim();
         try {
-            const request = await fetch(`${this.pokemonApi}${name}`);
-            const response = await request.json();
-            return response;
+            return this.httpClient.get(`${this.pokemonApi}${nameWithSpaces}`)
+            .pipe(map(pokemon => this.getPokemonProps(pokemon)))
+            .toPromise();
             
         } catch (error) {
+            console.log('Error ocurred');
             return error;
         }
+    }
+
+    private getPokemonProps(pokemon: any) {
+        const { 
+            name, 
+            moves,
+            sprites: { other: { home: { front_default }}}
+        } = pokemon;
+        return { name, moves, front_default };
     }
 
 }

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
-import { PokemonService } from './pokemon.service';
+import { PokemonService } from './services/pokemon.service';
 
 const modules = [
     HttpClientModule
