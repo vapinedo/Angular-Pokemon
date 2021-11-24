@@ -10,6 +10,7 @@ import { PokemonShort } from '@core/interfaces/pokemon.interface';
 })
 export class PokemonSearchComponent implements OnInit {
 
+  queryString: string = "";
   pokemon!: PokemonShort;
 
   constructor( 
@@ -18,8 +19,8 @@ export class PokemonSearchComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const queryString = this.activatedRoute.snapshot.params["queryString"];
-    this.pokemonSearch(queryString);
+    this.queryString = this.activatedRoute.snapshot.params["queryString"];
+    this.pokemonSearch(this.queryString);
   }
 
   async pokemonSearch(queryString: string) {
