@@ -1,15 +1,17 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 import { PokemonRoutingModule } from './pokemon-routing.module';
 
 import { PokemonHomeComponent } from './home/pokemon-home.component';
 
 const modules = [
-    PokemonRoutingModule
+  CommonModule,
+  PokemonRoutingModule
 ];
 
 const components = [
-    PokemonHomeComponent
+  PokemonHomeComponent
 ];
 
 @NgModule({
