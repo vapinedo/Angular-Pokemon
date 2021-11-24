@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent {
 
+  logo: string = "../../../../../assets/img/logo.png";
+
   constructor(private router: Router) {}
 
   onSearch(queryString: string) {
