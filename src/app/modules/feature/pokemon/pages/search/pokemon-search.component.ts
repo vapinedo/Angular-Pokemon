@@ -26,7 +26,6 @@ export class PokemonSearchComponent implements OnInit {
   async pokemonSearch(queryString: string) {
     const pokemon = await this.pokemonSvc.getPokemonByName(queryString);
     if (pokemon) {
-      console.log(pokemon)
       this.pokemon = pokemon;
     }
   }
