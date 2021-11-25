@@ -8,18 +8,18 @@ import { DOCUMENT } from '@angular/common';
 })
 export class BackTopComponent {
 
-    scrollAmount = 300;
-    isVisibleBackTopBtn: boolean = false;
+  isVisible: boolean = false;
+  private readonly scrollAmount = 300; // pixels
 
     constructor( 
-        @Inject(DOCUMENT) private document: Document
+      @Inject(DOCUMENT) private document: Document
     ) {}
 
     @HostListener("window:scroll")
-    onWindowScroll() {
+    showWhenScroll() {
       const yOffset = window.pageYOffset;
       const scrollTop = this.document.documentElement.scrollTop;
-      this.isVisibleBackTopBtn = (yOffset || scrollTop) > this.scrollAmount;
+      this.isVisible = (yOffset || scrollTop) > this.scrollAmount;
     }
     
     onBackTop() {
