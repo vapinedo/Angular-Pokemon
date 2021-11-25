@@ -8,11 +8,11 @@ import { DOCUMENT } from '@angular/common';
 })
 export class BackTopComponent {
 
-    constructor( 
-      @Inject(DOCUMENT) private document: Document
-    ) {}
+  constructor( 
+    @Inject(DOCUMENT) private document: Document
+  ) {}
 
-    onBackTop() {
-      this.document.documentElement.scrollTop = 0;
-    }
+  onBackTop() {
+    this.document.documentElement.scrollTop = 0;
+  }
 }
