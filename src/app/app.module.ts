@@ -15,7 +15,7 @@ const components = [
 const modules = [
   BrowserModule,
   AppRoutingModule,
-  CoreModule,
+  CoreModule
 ];
 
 @NgModule({

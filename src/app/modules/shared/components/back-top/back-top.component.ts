@@ -1,6 +1,4 @@
-import { Component, HostListener, Inject, OnInit } from '@angular/core';
-import { PokemonService } from '@core/services/pokemon.service';
-import { PokemonShort } from '@core/interfaces/pokemon.interface';
+import { Component, HostListener, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
 @Component({
