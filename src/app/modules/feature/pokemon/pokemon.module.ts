@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { SharedModule } from '@shared/shared.module';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { PokemonRoutingModule } from './pokemon-routing.module';
 
 import { PokemonListComponent } from './pages/list/pokemon-list.component';
@@ -9,6 +10,7 @@ import { PokemonSearchComponent } from './pages/search/pokemon-search.component'
 
 const modules = [
   SharedModule,
+  InfiniteScrollModule,
   PokemonRoutingModule
 ];
 
