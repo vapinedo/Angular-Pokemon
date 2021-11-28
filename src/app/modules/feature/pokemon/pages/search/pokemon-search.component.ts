@@ -27,7 +27,7 @@ export class PokemonSearchComponent implements OnInit {
     const queryWithSpaces = queryString.trim();
 
     if (queryWithSpaces.length > 0) {
-      const pokemon = await this.pokemonSvc.getPokemonByName(queryString);
+      const pokemon = await this.pokemonSvc.getByName(queryString);
       if (pokemon) {
         this.pokemon = pokemon;
       }      

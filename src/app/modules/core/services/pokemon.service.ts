@@ -11,7 +11,7 @@ export class PokemonService {
         private httpClient: HttpClient
     ) { }
 
-    async getPokemonList(): Promise<PokemonMedium[] | undefined> {
+    async getAll(): Promise<PokemonMedium[] | undefined> {
         try {
             const pageSize = 0;
 
@@ -21,7 +21,7 @@ export class PokemonService {
             const { results: pokemonShortList  } = await request.json();
 
             const pokemonMediumPromisesList = pokemonShortList.map((pokemon: PokemonShort) => {
-                const pokemonMediumPromise = this.getPokemonByName(pokemon.name);
+                const pokemonMediumPromise = this.getByName(pokemon.name);
                 return pokemonMediumPromise;
             })
             return Promise.all(pokemonMediumPromisesList);
@@ -32,7 +32,7 @@ export class PokemonService {
         }
     }
 
-    async getPokemonByName(name: string): Promise<PokemonMedium | undefined> {
+    async getByName(name: string): Promise<PokemonMedium | undefined> {
         try {
             const nameWithSpaces = name.trim();
             
@@ -40,7 +40,7 @@ export class PokemonService {
                 ${URL_BASE}${POKEMON_ENDPOINT}${nameWithSpaces}
             `)
             .pipe(map((pokemon: PokemonExtended) => {
-                return this.getPokemonMedium(pokemon)
+                return this.getMedium(pokemon)
             }))
             .toPromise();
             
@@ -50,7 +50,7 @@ export class PokemonService {
         }
     }
 
-    private getPokemonMedium(pokemon: PokemonExtended): PokemonMedium {
+    private getMedium(pokemon: PokemonExtended): PokemonMedium {
         const { 
             name, 
             moves,
