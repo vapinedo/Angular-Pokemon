@@ -2,7 +2,7 @@ import { map } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { URL_BASE, POKEMON_ENDPOINT } from '@environments/environment';
-import { PokemonExtended, PokemonShort } from '@core/interfaces/pokemon.interface';
+import { PokemonExtended, PokemonMedium, PokemonShort } from '@core/interfaces/pokemon.interface';
 
 @Injectable()
 export class PokemonService {
@@ -11,17 +11,20 @@ export class PokemonService {
         private httpClient: HttpClient
     ) { }
 
-    async getPokemonList(): Promise<PokemonShort[] | undefined> {
-
+    async getPokemonList(): Promise<PokemonMedium[] | undefined> {
         try {
-            const request = await fetch(`${URL_BASE}${POKEMON_ENDPOINT}`);
-            const { results } = await request.json();
+            const pageSize = 20;
 
-            const pokemonList = results.map((poke: PokemonShort) => {
-                const pokemon = this.getPokemonByName(poke.name);
-                return pokemon;
+            const request = await fetch(`
+                ${URL_BASE}${POKEMON_ENDPOINT}?limit=${pageSize}&offset=${pageSize}
+            `);
+            const { results: pokemonShortList  } = await request.json();
+
+            const pokemonMediumList = pokemonShortList.map((pokemon: PokemonShort) => {
+                const pokemonShort = this.getPokemonByName(pokemon.name);
+                return pokemonShort;
             })
-            return Promise.all(pokemonList);
+            return Promise.all(pokemonMediumList);
 
         } catch (error) {
             console.error(error)
@@ -29,13 +32,16 @@ export class PokemonService {
         }
     }
 
-    async getPokemonByName(name: string): Promise<PokemonShort | undefined> {
-        const nameWithSpaces = name.trim();
+    async getPokemonByName(name: string): Promise<PokemonMedium | undefined> {
         try {
+            const nameWithSpaces = name.trim();
+            
             return this.httpClient.get<PokemonExtended>(`
                 ${URL_BASE}${POKEMON_ENDPOINT}${nameWithSpaces}
             `)
-            .pipe(map((pokemon) => this.getPokemonShort(pokemon)))
+            .pipe(map((pokemon: PokemonExtended) => {
+                return this.getPokemonMedium(pokemon)
+            }))
             .toPromise();
             
         } catch (error) {
@@ -44,7 +50,7 @@ export class PokemonService {
         }
     }
 
-    private getPokemonShort(pokemon: PokemonExtended): PokemonShort {
+    private getPokemonMedium(pokemon: PokemonExtended): PokemonMedium {
         const { 
             name, 
             moves,

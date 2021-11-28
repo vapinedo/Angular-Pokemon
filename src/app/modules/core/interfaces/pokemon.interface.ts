@@ -19,8 +19,13 @@ export interface PokemonExtended {
     location_area_encounters: string;
 }
 
-export interface PokemonShort {
+export interface PokemonMedium {
     name: string;
     moves: any[];
     image: string;
 }
+
+export interface PokemonShort {
+    name: string;
+    url: string;
+}   

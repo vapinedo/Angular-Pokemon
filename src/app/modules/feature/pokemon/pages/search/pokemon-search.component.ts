@@ -1,7 +1,7 @@
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { PokemonService } from '@core/services/pokemon.service';
-import { PokemonShort } from '@core/interfaces/pokemon.interface';
+import { PokemonMedium } from '@core/interfaces/pokemon.interface';
 
 @Component({
   selector: 'app-pokemon-search',
@@ -11,7 +11,7 @@ import { PokemonShort } from '@core/interfaces/pokemon.interface';
 export class PokemonSearchComponent implements OnInit {
 
   queryString: string = "";
-  pokemon!: PokemonShort;
+  pokemon!: PokemonMedium;
 
   constructor( 
     private pokemonSvc: PokemonService,
@@ -24,10 +24,15 @@ export class PokemonSearchComponent implements OnInit {
   }
 
   async pokemonSearch(queryString: string) {
-    const pokemon = await this.pokemonSvc.getPokemonByName(queryString);
-    if (pokemon) {
-      this.pokemon = pokemon;
+    const queryWithSpaces = queryString.trim();
+
+    if (queryWithSpaces.length > 0) {
+      const pokemon = await this.pokemonSvc.getPokemonByName(queryString);
+      if (pokemon) {
+        this.pokemon = pokemon;
+      }      
     }
+    return;
   }
 
 }

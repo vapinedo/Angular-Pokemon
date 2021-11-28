@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PokemonService } from '@core/services/pokemon.service';
-import { PokemonShort } from '@core/interfaces/pokemon.interface';
+import { PokemonMedium } from '@core/interfaces/pokemon.interface';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -9,7 +9,7 @@ import { PokemonShort } from '@core/interfaces/pokemon.interface';
 })
 export class PokemonListComponent implements OnInit {
 
-  public pokemonList: PokemonShort[] = [];
+  public pokemonList: PokemonMedium[] = [];
   
   constructor( 
     private pokemonSvc: PokemonService,
