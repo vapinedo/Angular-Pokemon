@@ -13,18 +13,18 @@ export class PokemonService {
 
     async getPokemonList(): Promise<PokemonMedium[] | undefined> {
         try {
-            const pageSize = 20;
+            const pageSize = 0;
 
             const request = await fetch(`
                 ${URL_BASE}${POKEMON_ENDPOINT}?limit=${pageSize}&offset=${pageSize}
             `);
             const { results: pokemonShortList  } = await request.json();
 
-            const pokemonMediumList = pokemonShortList.map((pokemon: PokemonShort) => {
-                const pokemonShort = this.getPokemonByName(pokemon.name);
-                return pokemonShort;
+            const pokemonMediumPromisesList = pokemonShortList.map((pokemon: PokemonShort) => {
+                const pokemonMediumPromise = this.getPokemonByName(pokemon.name);
+                return pokemonMediumPromise;
             })
-            return Promise.all(pokemonMediumList);
+            return Promise.all(pokemonMediumPromisesList);
 
         } catch (error) {
             console.error(error)
