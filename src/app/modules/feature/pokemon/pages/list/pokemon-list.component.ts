@@ -9,6 +9,8 @@ import { PokemonMedium } from '@core/interfaces/pokemon.interface';
 })
 export class PokemonListComponent implements OnInit {
 
+  private page = 0;
+
   public pokemonList: PokemonMedium[] = [];
   
   constructor( 
@@ -26,8 +28,13 @@ export class PokemonListComponent implements OnInit {
       }
     }
 
-    onScrollReachDown(): void {
+    async onScroll() {
       console.log("Scroll is Down")
+      const pokemonList = await this.pokemonSvc.getByPage(this.page + 20);
+      if (pokemonList && pokemonList.length > 0) {
+        this.pokemonList = [...this.pokemonList, ...pokemonList];
+      }
+      console.log(this.pokemonList)
     }
   
 }

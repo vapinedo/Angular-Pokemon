@@ -1,6 +1,8 @@
 <section 
-  infinite-scroll
-  (scrolled)="onScrollReachDown()"
+  infiniteScroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="50"
+  (scrolled)="onScroll()"
   class="row row-cols-1 row-cols-md-4 g-5">
     <div *ngFor="let pokemon of pokemonList" class="col">
 
