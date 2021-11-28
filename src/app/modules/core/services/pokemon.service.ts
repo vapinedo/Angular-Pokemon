@@ -28,12 +28,13 @@ export class PokemonService {
         }
     }
 
-    async getByPage(page?: number): Promise<PokemonMedium[] | undefined> {
-        try {
-            const pageSize = page ? page : 0;
+    async getByPage(offset: number = 20): Promise<PokemonMedium[] | undefined> {
 
+        const pokemonsPerPage = 20;
+
+        try {
             const request = await fetch(`
-                ${URL_BASE}${POKEMON_ENDPOINT}?limit=${pageSize}&offset=${pageSize}
+                ${URL_BASE}${POKEMON_ENDPOINT}?limit=${pokemonsPerPage}&offset=${offset}
             `);
             const { results: pokemonShortList } = await request.json();
 

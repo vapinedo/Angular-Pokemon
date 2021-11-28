@@ -9,7 +9,11 @@ import { PokemonMedium } from '@core/interfaces/pokemon.interface';
 })
 export class PokemonListComponent implements OnInit {
 
+  // paginate every 20 pokemons
+  // 20, 40, 60, 80 pokemons, etc
   private page = 0;
+  private readonly LIMIT = 980; // 1000 pokemos max
+  private POKEMONS_PER_PAGE = 20;
 
   public pokemonList: PokemonMedium[] = [];
   
@@ -29,12 +33,14 @@ export class PokemonListComponent implements OnInit {
     }
 
     async onScroll() {
-      console.log("Scroll is Down")
-      const pokemonList = await this.pokemonSvc.getByPage(this.page + 20);
+      if (this.page >= this.LIMIT) return;
+
+      this.page += this.POKEMONS_PER_PAGE;
+      const pokemonList = await this.pokemonSvc.getByPage(this.page);
+        
       if (pokemonList && pokemonList.length > 0) {
         this.pokemonList = [...this.pokemonList, ...pokemonList];
       }
-      console.log(this.pokemonList)
     }
   
 }
