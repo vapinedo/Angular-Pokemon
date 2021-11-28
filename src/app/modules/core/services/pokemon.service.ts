@@ -1,21 +1,20 @@
 import { map } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { pokemonApi } from '@environments/environment';
+import { URL_BASE, POKEMON_ENDPOINT } from '@environments/environment';
 import { PokemonExtended, PokemonShort } from '@core/interfaces/pokemon.interface';
 
 @Injectable()
 export class PokemonService {
-
-    private readonly pokemonApi = pokemonApi;
 
     constructor(
         private httpClient: HttpClient
     ) { }
 
     async getPokemonList(): Promise<PokemonShort[] | undefined> {
+
         try {
-            const request = await fetch(pokemonApi);
+            const request = await fetch(`${URL_BASE}${POKEMON_ENDPOINT}`);
             const { results } = await request.json();
 
             const pokemonList = results.map((poke: PokemonShort) => {
@@ -33,7 +32,9 @@ export class PokemonService {
     async getPokemonByName(name: string): Promise<PokemonShort | undefined> {
         const nameWithSpaces = name.trim();
         try {
-            return this.httpClient.get<PokemonExtended>(`${this.pokemonApi}${nameWithSpaces}`)
+            return this.httpClient.get<PokemonExtended>(`
+                ${URL_BASE}${POKEMON_ENDPOINT}${nameWithSpaces}
+            `)
             .pipe(map((pokemon) => this.getPokemonShort(pokemon)))
             .toPromise();
             

@@ -19,11 +19,15 @@ export class PokemonListComponent implements OnInit {
       this.getPokemonList();
     }
     
-    async getPokemonList() {
+    async getPokemonList(): Promise<void> {
       const pokemonList = await this.pokemonSvc.getPokemonList();
       if (pokemonList && pokemonList.length > 0) {
         this.pokemonList = pokemonList;
       }
+    }
+
+    onScrollReachDown(): void {
+      console.log("Scroll is Down")
     }
   
 }

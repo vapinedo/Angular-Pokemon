@@ -6,7 +6,9 @@ export const environment = {
   production: false
 };
 
-export const pokemonApi = "https://pokeapi.co/api/v2/pokemon/";
+// Pokemon Api
+export const URL_BASE = "https://pokeapi.co/api/v2/";
+export const POKEMON_ENDPOINT = "pokemon/";
 
 /*
  * For easier debugging in development mode, you can import the following file
