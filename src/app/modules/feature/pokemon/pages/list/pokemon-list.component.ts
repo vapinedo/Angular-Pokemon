@@ -23,6 +23,8 @@ export class PokemonListComponent implements OnInit {
     
     ngOnInit(): void {
       this.getPokemonList();
+      this.pokemonSvc.getPokemonsFromFB();
+      this.pokemonSvc.createPokemonToFB();
     }
     
     async getPokemonList(): Promise<void> {
