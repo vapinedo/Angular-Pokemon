@@ -1,9 +1,9 @@
 import { map } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { firebase_database } from '@environments/environment';
+import { firebaseDB } from '@environments/environment';
 import { PokemonMedium } from '@core/interfaces/pokemon.interface';
-import { collection, addDoc, getDocs, getDoc } from '@firebase/firestore';
+import { collection, doc, setDoc, getDocs, getDoc, deleteDoc } from '@firebase/firestore';
 
 @Injectable()
 export class PokemonFirebaseService {
@@ -13,9 +13,22 @@ export class PokemonFirebaseService {
     constructor(
         private httpClient: HttpClient
     ) { }
-
+    
+    async create(pokemon: PokemonMedium): Promise<unknown> {
+        try {
+            const docId = pokemon.id.toString();
+            const response = await setDoc(
+                doc(firebaseDB, this.COLLECTION, docId), pokemon
+            );
+            return response;
+            
+        } catch (err) {
+            console.error("Error adding document: ", err);
+            return err;
+        }
+    }
     async read(): Promise<any[]> {
-        const request = await getDocs(collection(firebase_database, this.COLLECTION));
+        const request = await getDocs(collection(firebaseDB, this.COLLECTION));
         const pokemonList = request.docs.map(item => item.data());
         return pokemonList;
     }
@@ -25,17 +38,9 @@ export class PokemonFirebaseService {
     //     request.forEach((item) => console.log(item.data()));
     // }
 
-    async create(pokemon: PokemonMedium): Promise<unknown> {
-        try {
-            const docRef = await addDoc(
-                collection(firebase_database, this.COLLECTION), pokemon
-            );
-            return docRef.id
-            
-        } catch (err) {
-            console.error("Error adding document: ", err);
-            return err;
-        }
+    async delete() {
+        const docID = "D6XhgQTfRwelUAFkGNnH";
+        return await deleteDoc(doc(firebaseDB, this.COLLECTION, docID));
     }
 
 }

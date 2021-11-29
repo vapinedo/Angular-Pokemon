@@ -26,8 +26,8 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const firebase_app = initializeApp(firebaseConfig);
-export const firebase_database = getFirestore(firebase_app);
+const firebaseApp = initializeApp(firebaseConfig);
+export const firebaseDB = getFirestore(firebaseApp);
 
 /*
  * For easier debugging in development mode, you can import the following file

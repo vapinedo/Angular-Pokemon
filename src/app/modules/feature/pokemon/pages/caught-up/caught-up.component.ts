@@ -26,4 +26,9 @@ export class CaughtUpComponent implements OnInit {
         }
     }
 
+    async onDropPokemon(pokemon: PokemonMedium) {
+        const response = await this.pokemonFirebaseSvc.delete();
+        console.log(response);
+    }
+
 }
