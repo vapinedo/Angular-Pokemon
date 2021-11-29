@@ -14,7 +14,7 @@ export class MessageService {
             position: 'center',
             html: `
                 <img 
-                width="60%" 
+                width="55%" 
                 src=${pokemon.image}
                 class="animate__animated animate__rubberBand" />
             `,
