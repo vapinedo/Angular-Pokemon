@@ -24,4 +24,19 @@ export class MessageService {
           })
     }
 
+    pokemonAlreadyExists(pokemon: PokemonMedium): Promise<SweetAlertResult<any>> {
+        return Swal.fire({
+            position: 'center',
+            html: `
+                <img 
+                width="55%" 
+                src=${pokemon.image}
+                class="animate__animated animate__bounce" />
+            `,
+            icon: 'warning',
+            title: `Oops ${ this.titleCasePipe.transform(pokemon.name) } already catched!`,
+            showConfirmButton: false,
+          })
+    }
+
 }

@@ -30,11 +30,15 @@ export class PokemonCardComponent {
       didOpen: () => Swal.showLoading()
     });
 
-    const response = await this.pokemonFirebaseSvc.create(pokemon);
-    setTimeout(() => {
-      Swal.close();
+    const pokemonExists = await this.pokemonFirebaseSvc.chechExistsById(pokemon.id.toString());
+    Swal.close();
+   
+    if (pokemonExists) {
+      this.messageSvc.pokemonAlreadyExists(pokemon);
+    } else {
+      await this.pokemonFirebaseSvc.create(pokemon);
       this.messageSvc.pokemonCatched(pokemon);
-    }, 1000);
+    }
   }
 
 }

@@ -3,44 +3,50 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firebaseDB } from '@environments/environment';
 import { PokemonMedium } from '@core/interfaces/pokemon.interface';
-import { collection, doc, setDoc, getDocs, getDoc, deleteDoc } from '@firebase/firestore';
+import { collection, doc, setDoc, getDocs, getDoc, deleteDoc, DocumentData } from '@firebase/firestore';
 
 @Injectable()
 export class PokemonFirebaseService {
 
-    private readonly COLLECTION = "pokemonsCatched";
+    private readonly collectionRef = "pokemonsCatched";
+    private readonly pokemonsRef = collection(firebaseDB, "pokemonsCatched");
 
     constructor(
         private httpClient: HttpClient
     ) { }
     
-    async create(pokemon: PokemonMedium): Promise<unknown> {
+    async create(pokemon: PokemonMedium) {
         try {
             const docId = pokemon.id.toString();
-            const response = await setDoc(
-                doc(firebaseDB, this.COLLECTION, docId), pokemon
-            );
-            return response;
+            return await setDoc(doc(this.pokemonsRef, docId), pokemon);
             
         } catch (err) {
             console.error("Error adding document: ", err);
             return err;
         }
     }
+
     async read(): Promise<any[]> {
-        const request = await getDocs(collection(firebaseDB, this.COLLECTION));
+        const request = await getDocs(collection(firebaseDB, this.collectionRef));
         const pokemonList = request.docs.map(item => item.data());
         return pokemonList;
     }
 
-    // async readbyId(id: number) {
-    //     const request = await getDoc(collection(firebase_database, this.COLLECTION));
-    //     request.forEach((item) => console.log(item.data()));
-    // }
+    async readbyId(docId: string): Promise<DocumentData | undefined> {
+        const docRef = doc(firebaseDB, this.collectionRef, docId);
+        const docSnap = await getDoc(docRef);
+        return docSnap.exists() ? docSnap.data() : undefined;
+    }
+
+    async chechExistsById(docId: string) {  
+        const docRef = doc(firebaseDB, this.collectionRef, docId);
+        const docSnap = await getDoc(docRef);
+        return docSnap.exists() ? true : false;
+    }
 
     async delete() {
         const docID = "D6XhgQTfRwelUAFkGNnH";
-        return await deleteDoc(doc(firebaseDB, this.COLLECTION, docID));
+        return await deleteDoc(doc(firebaseDB, this.collectionRef, docID));
     }
 
 }

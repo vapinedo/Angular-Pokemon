@@ -16,13 +16,13 @@ export class CaughtUpComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.getCauthUpPokemons();
+        this.getPokemonCauthUpList();
     }
 
-    async getCauthUpPokemons(): Promise<void> {
-        const pokemonList = await this.pokemonFirebaseSvc.read();
-        if (pokemonList.length > 0) {
-            this.pokemonList = pokemonList;
+    async getPokemonCauthUpList(): Promise<void> {
+        const pokemonCaughtUpList = await this.pokemonFirebaseSvc.read();
+        if (pokemonCaughtUpList.length > 0) {
+            this.pokemonList = pokemonCaughtUpList;
         }
     }
 
