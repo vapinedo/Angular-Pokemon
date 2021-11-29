@@ -20,7 +20,7 @@ export class PokemonFirebaseService {
     }
 
     // async readbyId(id: number) {
-    //     const request = await getDocs(collection(firebase_database, this.COLLECTION));
+    //     const request = await getDoc(collection(firebase_database, this.COLLECTION));
     //     request.forEach((item) => console.log(item.data()));
     // }
 
