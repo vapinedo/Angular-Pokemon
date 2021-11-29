@@ -8,6 +8,7 @@ import { Component } from '@angular/core';
 })
 export class NavbarComponent {
 
+  appName: string = "Pokemon";
   logo: string = "../../../../../assets/img/logo.png";
 
   constructor(
