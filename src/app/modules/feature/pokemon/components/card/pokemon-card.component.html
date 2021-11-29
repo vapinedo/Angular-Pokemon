@@ -2,8 +2,13 @@
   <img [src]="pokemon?.image" class="card-img-top" [alt]="pokemon.name">
   <div class="card-body">
     <h3 class="card-title text-center text-muted">{{ pokemon?.name | uppercase }}</h3>
-    <p class="card-text">
+
+    <p class="card-text mt-3">
       <span class="badge bg-info text-dark">{{ pokemon?.moves?.length }} moves</span>
     </p>
+
+    <div class="d-grid mt-3">
+      <button class="btn btn-lg btn-outline-primary" type="button">Catch</button>
+    </div>
   </div>
 </div>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PokemonService } from '@core/services/pokemon.service';
 import { PokemonMedium } from '@core/interfaces/pokemon.interface';
+import { PokemonApiService } from '@core/services/pokemon-api.service';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -18,17 +18,15 @@ export class PokemonListComponent implements OnInit {
   public pokemonList: PokemonMedium[] = [];
   
   constructor( 
-    private pokemonSvc: PokemonService,
+    private pokemonApiSvc: PokemonApiService,
   ) {}
     
     ngOnInit(): void {
       this.getPokemonList();
-      this.pokemonSvc.getPokemonsFromFB();
-      this.pokemonSvc.createPokemonToFB();
     }
     
     async getPokemonList(): Promise<void> {
-      const pokemonList = await this.pokemonSvc.getAll();
+      const pokemonList = await this.pokemonApiSvc.getAll();
       if (pokemonList && pokemonList.length > 0) {
         this.pokemonList = pokemonList;
       }
@@ -38,7 +36,7 @@ export class PokemonListComponent implements OnInit {
       if (this.page >= this.LIMIT) return;
 
       this.page += this.POKEMONS_PER_PAGE;
-      const pokemonList = await this.pokemonSvc.getByPage(this.page);
+      const pokemonList = await this.pokemonApiSvc.getByPage(this.page);
         
       if (pokemonList && pokemonList.length > 0) {
         this.pokemonList = [...this.pokemonList, ...pokemonList];
