@@ -1,15 +1,15 @@
 <section class="row animate__animated animate__fadeIn mt-4">
 
     <div *ngFor="let pokemon of pokemonList" class="card mb-4">
-        <div class="row">
+        <div class="row g-0">
           
-            <div class="col-md-auto">
+            <div class="col text-center">
                 <img [src]="pokemon.image" class="pokemon-image img-fluid rounded-start" [alt]="pokemon.name">
             </div>
 
             <div class="col-md-9">
                 <div class="card-body">
-                    <h5 class="card-title">{{ pokemon.name | titlecase }}</h5>
+                    <h3 class="card-title">{{ pokemon.name | titlecase }}</h3>
                     <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                     <p class="card-text">
                         <small class="text-muted">Catched 3 mins ago</small>
