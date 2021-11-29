@@ -14,9 +14,10 @@ export class PokemonFirebaseService {
         private httpClient: HttpClient
     ) { }
 
-    async read() {
+    async read(): Promise<any[]> {
         const request = await getDocs(collection(firebase_database, this.COLLECTION));
-        request.forEach((item) => console.log(item.data()));
+        const pokemonList = request.docs.map(item => item.data());
+        return pokemonList;
     }
 
     // async readbyId(id: number) {
