@@ -20,9 +20,10 @@ export interface PokemonExtended {
 }
 
 export interface PokemonMedium {
+    id: number;
     name: string;
-    moves: any[];
     image: string;
+    movesCount: number;
 }
 
 export interface PokemonShort {

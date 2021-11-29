@@ -2,32 +2,38 @@ import { map } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firebase_database } from '@environments/environment';
-import { collection, addDoc, getDocs } from '@firebase/firestore';
-import { PokemonExtended, PokemonMedium, PokemonShort } from '@core/interfaces/pokemon.interface';
+import { collection, addDoc, getDocs, getDoc } from '@firebase/firestore';
+import { PokemonMedium } from '@core/interfaces/pokemon.interface';
 
 @Injectable()
 export class PokemonFirebaseService {
+
+    private readonly COLLECTION = "pokemonsCatched";
 
     constructor(
         private httpClient: HttpClient
     ) { }
 
-    async getPokemonsFromFB() {
-        const request = await getDocs(collection(firebase_database, "pokemonsCatched"));
+    async read() {
+        const request = await getDocs(collection(firebase_database, this.COLLECTION));
         request.forEach((item) => console.log(item.data()));
     }
 
-    async createPokemonToFB() {
+    // async readbyId(id: number) {
+    //     const request = await getDocs(collection(firebase_database, this.COLLECTION));
+    //     request.forEach((item) => console.log(item.data()));
+    // }
+
+    async create(pokemon: PokemonMedium): Promise<unknown> {
         try {
-            const docRef = await addDoc(collection(firebase_database, "pokemonsCatched"), {
-                name: "Charmander",
-                mover: 20,
-                imageUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/25.png"
-            });
-            console.log("Document written with ID: ", docRef.id);
+            const docRef = await addDoc(
+                collection(firebase_database, this.COLLECTION), pokemon
+            );
+            return docRef.id
             
-        } catch (e) {
-            console.error("Error adding document: ", e);
+        } catch (err) {
+            console.error("Error adding document: ", err);
+            return err;
         }
     }
 

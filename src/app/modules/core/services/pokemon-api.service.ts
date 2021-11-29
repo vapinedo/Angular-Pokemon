@@ -70,11 +70,13 @@ export class PokemonApiService {
 
     private getMedium(pokemon: PokemonExtended): PokemonMedium {
         const { 
+            id,
             name, 
             moves,
             sprites: { other: { home: { front_default: image }}}
         } = pokemon;
-        return { name, moves, image };
+        const movesCount = moves.length;
+        return { id, name, movesCount, image };
     }
 
 }
