@@ -12,7 +12,12 @@ export class MessageService {
     pokemonCatched(pokemon: PokemonMedium): Promise<SweetAlertResult<any>> {
         return Swal.fire({
             position: 'center',
-            html: `<img src=${pokemon.image} width="60%" />`,
+            html: `
+                <img 
+                width="60%" 
+                src=${pokemon.image}
+                class="animate__animated animate__rubberBand" />
+            `,
             icon: 'success',
             title: `${ this.titleCasePipe.transform(pokemon.name) } catched!`,
             showConfirmButton: false,
