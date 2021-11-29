@@ -1,4 +1,5 @@
 import Swal from "sweetalert2";
+import { TitleCasePipe } from "@angular/common";
 import { Component, Input } from '@angular/core';
 import { MessageService } from '@core/services/message.service';
 import { PokemonMedium } from '@core/interfaces/pokemon.interface';
@@ -7,7 +8,8 @@ import { PokemonFirebaseService } from '@core/services/pokemon-firebase.service'
 @Component({
   selector: 'app-pokemon-card',
   templateUrl: './pokemon-card.component.html',
-  styleUrls: ['./pokemon-card.component.scss']
+  styleUrls: ['./pokemon-card.component.scss'],
+  providers: [TitleCasePipe]
 })
 export class PokemonCardComponent {
 
@@ -15,12 +17,13 @@ export class PokemonCardComponent {
 
   constructor(
     private messageSvc: MessageService,
+    private titleCasePipe: TitleCasePipe,
     private pokemonFirebaseSvc: PokemonFirebaseService
   ) {}
 
   async onCatchPokemon(pokemon: PokemonMedium) {
     Swal.fire({
-      title: `Catching ${pokemon.name}`,
+      title: `Catching ${ this.titleCasePipe.transform(pokemon.name) }`,
       html: 'Please wait...',
       allowEscapeKey: false,
       allowOutsideClick: false,

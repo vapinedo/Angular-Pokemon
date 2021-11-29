@@ -2,8 +2,8 @@ import { map } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firebase_database } from '@environments/environment';
-import { collection, addDoc, getDocs, getDoc } from '@firebase/firestore';
 import { PokemonMedium } from '@core/interfaces/pokemon.interface';
+import { collection, addDoc, getDocs, getDoc } from '@firebase/firestore';
 
 @Injectable()
 export class PokemonFirebaseService {
