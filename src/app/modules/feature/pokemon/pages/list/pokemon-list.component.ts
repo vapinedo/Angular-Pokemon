@@ -32,7 +32,7 @@ export class PokemonListComponent implements OnInit {
       }
     }
 
-    async onScroll() {
+    async onScrollReachDown() {
       if (this.page >= this.LIMIT) return;
 
       this.page += this.POKEMONS_PER_PAGE;
