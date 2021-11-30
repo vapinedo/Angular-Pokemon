@@ -11,12 +11,11 @@ export class MessageService {
 
     pokemonCatched(pokemon: PokemonMedium): Promise<SweetAlertResult<any>> {
         return Swal.fire({
-            position: 'center',
             html: `
                 <img 
                 width="55%" 
                 src=${pokemon.image}
-                class="animate__animated animate__rubberBand" />
+                class="animate__animated animate__zoomInDown" />
             `,
             icon: 'success',
             title: `${ this.titleCasePipe.transform(pokemon.name) } catched!`,
@@ -26,12 +25,11 @@ export class MessageService {
 
     pokemonAlreadyExists(pokemon: PokemonMedium): Promise<SweetAlertResult<any>> {
         return Swal.fire({
-            position: 'center',
             html: `
                 <img 
                 width="55%" 
                 src=${pokemon.image}
-                class="animate__animated animate__bounce" />
+                class="animate__animated animate__shakeX" />
             `,
             icon: 'warning',
             title: `Oops ${ this.titleCasePipe.transform(pokemon.name) } already catched!`,
@@ -45,7 +43,7 @@ export class MessageService {
                 <img 
                 width="55%"
                 src=${pokemon.image}
-                class="animate__animated animate__flash animate__repeat" />
+                class="animate__animated animate__flash animate__fadeIn" />
             `,  
             title: `Drop ${this.titleCasePipe.transform(pokemon.name)} ?`,
             showCancelButton: true,

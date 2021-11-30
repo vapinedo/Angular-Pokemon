@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 import { TitleCasePipe } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { MessageService } from "@core/services/message.service";
@@ -32,9 +33,18 @@ export class CaughtUpComponent implements OnInit {
 
     async onDropPokemon(pokemon: PokemonMedium) {
         const drop = await this.messageSvc.confirm(pokemon);
+
+        Swal.fire({
+            title: `Droping ${ this.titleCasePipe.transform(pokemon.name) }`,
+            html: 'Please wait...',
+            allowEscapeKey: false,
+            allowOutsideClick: false,
+            didOpen: () => Swal.showLoading()
+        });
+
         if (drop.isConfirmed) {
-            const response = await this.pokemonFirebaseSvc.delete(pokemon);
-            console.log(response);
+            await this.pokemonFirebaseSvc.delete(pokemon);
+            Swal.close();
         }
     }
 
