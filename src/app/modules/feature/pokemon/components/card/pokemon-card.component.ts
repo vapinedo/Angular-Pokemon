@@ -8,8 +8,7 @@ import { PokemonFirebaseService } from '@core/services/pokemon-firebase.service'
 @Component({
   selector: 'app-pokemon-card',
   templateUrl: './pokemon-card.component.html',
-  styleUrls: ['./pokemon-card.component.scss'],
-  providers: [TitleCasePipe]
+  styleUrls: ['./pokemon-card.component.scss']
 })
 export class PokemonCardComponent {
 

@@ -1,4 +1,6 @@
+import { TitleCasePipe } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
+import { MessageService } from "@core/services/message.service";
 import { PokemonMedium } from "@core/interfaces/pokemon.interface";
 import { PokemonFirebaseService } from "@core/services/pokemon-firebase.service";
 
@@ -12,6 +14,8 @@ export class CaughtUpComponent implements OnInit {
     public pokemonList: PokemonMedium[] = [];
 
     constructor(
+        private titleCasePipe: TitleCasePipe,
+        private messageSvc: MessageService,
         private pokemonFirebaseSvc: PokemonFirebaseService
     ) {}
 
@@ -27,8 +31,11 @@ export class CaughtUpComponent implements OnInit {
     }
 
     async onDropPokemon(pokemon: PokemonMedium) {
-        const response = await this.pokemonFirebaseSvc.delete();
-        console.log(response);
+        const drop = await this.messageSvc.confirm(pokemon);
+        if (drop.isConfirmed) {
+            const response = await this.pokemonFirebaseSvc.delete(pokemon);
+            console.log(response);
+        }
     }
 
 }

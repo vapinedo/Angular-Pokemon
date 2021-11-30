@@ -44,8 +44,8 @@ export class PokemonFirebaseService {
         return docSnap.exists() ? true : false;
     }
 
-    async delete() {
-        const docID = "D6XhgQTfRwelUAFkGNnH";
+    async delete(pokemon: PokemonMedium) {
+        const docID = pokemon.id.toString();
         return await deleteDoc(doc(firebaseDB, this.collectionRef, docID));
     }
 
