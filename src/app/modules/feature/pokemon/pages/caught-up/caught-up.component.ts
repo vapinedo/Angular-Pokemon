@@ -31,7 +31,7 @@ export class CaughtUpComponent implements OnInit {
         }
     }
 
-    async onDropPokemon(pokemon: PokemonMedium) {
+    async onDropPokemon(pokemon: PokemonMedium, index: number) {
         const drop = await this.messageSvc.confirm(pokemon);
 
         Swal.fire({
@@ -44,8 +44,9 @@ export class CaughtUpComponent implements OnInit {
 
         if (drop.isConfirmed) {
             await this.pokemonFirebaseSvc.delete(pokemon);
-            Swal.close();
+            this.pokemonList.splice(index, 1);
         }
+        Swal.close();
     }
 
 }
